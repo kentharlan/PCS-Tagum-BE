@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const { Pg } = require('../Pg/Pg')
@@ -21,7 +20,7 @@ const login = async ({ data }) => {
             return response.error = { statusCode: 404, message: "No user found"}
         }
 
-        const verifyPassword = password == user[0].password// await bcrypt.compare(password, user[0].password)
+        const verifyPassword = password == user[0].password
 
         if (!verifyPassword) {
             return response.error = { statusCode: 400, message: "Wrong Password"}

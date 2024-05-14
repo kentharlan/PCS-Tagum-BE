@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs')
-
 const { Pg } = require('../Pg/Pg')
 const { users_query_set: qs } = require('../Query/users-query-set')
 
@@ -46,8 +44,6 @@ const createUser = async ({data}) => {
             password,
             admin
         } = data
-
-        const hashedPass = await bcrypt.hash(password, 10)
 
         const users = await Pg.query(qs.createUser, [
             first_name,
@@ -107,8 +103,6 @@ const updatePassword = async ({data, id}) => {
     }
     try {
         const { password } = data
-
-        const hashedPass =  await bcrypt.hash(password, 10)
 
         await Pg.query(qs.updatePassword, [
             password,

@@ -30,7 +30,6 @@ const { Ws } = require('./RPI/ws');
 const initApp = () => {
     Ws.init1()
     Ws.init2()
-    Ws.init3()
     init();
     console.log(`BE server is running at port ${port}`);
 }

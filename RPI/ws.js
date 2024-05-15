@@ -76,7 +76,7 @@ class Ws {
 
         if (rpi <= 1) {
             RPI = 1
-            switch(room_no) {
+            switch(room) {
                 case 1: GPIO = 4; break;
                 case 2: GPIO = 15; break;
                 case 3: GPIO = 18; break;
@@ -102,9 +102,9 @@ class Ws {
                 case 23: GPIO = 19; break;
                 case 24: GPIO = 12; break;
             }
-          } else if (rpi <= 2) {
+          } else {
             RPI = 2
-            switch(room_no) {
+            switch(room) {
                 case 25: GPIO = 6; break;
                 case 26: GPIO = 13; break;
                 case 27: GPIO = 16; break;

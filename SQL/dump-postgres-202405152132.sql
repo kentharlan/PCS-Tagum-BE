@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
 -- Dumped by pg_dump version 16.1
 
--- Started on 2024-04-01 14:12:15 PST
+-- Started on 2024-05-15 21:32:44 PST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,39 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 4 (class 2615 OID 2200)
+-- TOC entry 3430 (class 1262 OID 5)
+-- Name: postgres; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE postgres WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE postgres OWNER TO postgres;
+
+\connect postgres
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3431 (class 0 OID 0)
+-- Dependencies: 3430
+-- Name: DATABASE postgres; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
+
+
+--
+-- TOC entry 5 (class 2615 OID 16480)
 -- Name: public; Type: SCHEMA; Schema: -; Owner: pg_database_owner
 --
 
@@ -29,8 +61,8 @@ CREATE SCHEMA public;
 ALTER SCHEMA public OWNER TO pg_database_owner;
 
 --
--- TOC entry 3418 (class 0 OID 0)
--- Dependencies: 4
+-- TOC entry 3432 (class 0 OID 0)
+-- Dependencies: 5
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: pg_database_owner
 --
 
@@ -42,7 +74,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 223 (class 1259 OID 16448)
+-- TOC entry 215 (class 1259 OID 16481)
 -- Name: payments; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -59,7 +91,7 @@ CREATE TABLE public.payments (
 ALTER TABLE public.payments OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 16447)
+-- TOC entry 216 (class 1259 OID 16487)
 -- Name: payments_payment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -75,8 +107,8 @@ CREATE SEQUENCE public.payments_payment_id_seq
 ALTER SEQUENCE public.payments_payment_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3419 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 3434 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: payments_payment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -84,7 +116,7 @@ ALTER SEQUENCE public.payments_payment_id_seq OWNED BY public.payments.payment_i
 
 
 --
--- TOC entry 215 (class 1259 OID 16388)
+-- TOC entry 217 (class 1259 OID 16488)
 -- Name: rates; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -95,14 +127,20 @@ CREATE TABLE public.rates (
     no_garage text NOT NULL,
     dt_created timestamp without time zone DEFAULT now(),
     dt_updated timestamp without time zone DEFAULT now(),
-    deleted boolean DEFAULT false
+    deleted boolean DEFAULT false,
+    extra_towel smallint DEFAULT 20,
+    extra_pillow smallint DEFAULT 20,
+    extra_blanket smallint DEFAULT 20,
+    extra_single_bed smallint DEFAULT 200,
+    extra_double_bed smallint DEFAULT 300,
+    extra_person smallint DEFAULT 100
 );
 
 
 ALTER TABLE public.rates OWNER TO postgres;
 
 --
--- TOC entry 216 (class 1259 OID 16395)
+-- TOC entry 218 (class 1259 OID 16496)
 -- Name: rates_rate_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -117,8 +155,8 @@ CREATE SEQUENCE public.rates_rate_id_seq
 ALTER SEQUENCE public.rates_rate_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3420 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3435 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: rates_rate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -126,7 +164,7 @@ ALTER SEQUENCE public.rates_rate_id_seq OWNED BY public.rates.rate_id;
 
 
 --
--- TOC entry 217 (class 1259 OID 16396)
+-- TOC entry 219 (class 1259 OID 16497)
 -- Name: rooms; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -141,7 +179,7 @@ CREATE TABLE public.rooms (
 ALTER TABLE public.rooms OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 16481)
+-- TOC entry 220 (class 1259 OID 16500)
 -- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -156,7 +194,7 @@ CREATE TABLE public.sessions (
 ALTER TABLE public.sessions OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 16480)
+-- TOC entry 221 (class 1259 OID 16504)
 -- Name: sessions_session_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -172,8 +210,8 @@ CREATE SEQUENCE public.sessions_session_id_seq
 ALTER SEQUENCE public.sessions_session_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3421 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 3436 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: sessions_session_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -181,7 +219,7 @@ ALTER SEQUENCE public.sessions_session_id_seq OWNED BY public.sessions.session_i
 
 
 --
--- TOC entry 218 (class 1259 OID 16399)
+-- TOC entry 222 (class 1259 OID 16505)
 -- Name: transaction_ref_no_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -196,7 +234,7 @@ CREATE SEQUENCE public.transaction_ref_no_seq
 ALTER SEQUENCE public.transaction_ref_no_seq OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 16400)
+-- TOC entry 223 (class 1259 OID 16506)
 -- Name: transactions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -210,14 +248,20 @@ CREATE TABLE public.transactions (
     base_time smallint,
     additional_time smallint,
     rate_id smallint,
-    remarks text
+    remarks text,
+    extra_towel smallint DEFAULT 0,
+    extra_pillow smallint DEFAULT 0,
+    extra_blanket smallint DEFAULT 0,
+    extra_single_bed smallint DEFAULT 0,
+    extra_double_bed smallint DEFAULT 0,
+    extra_person smallint DEFAULT 0
 );
 
 
 ALTER TABLE public.transactions OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 16407)
+-- TOC entry 224 (class 1259 OID 16513)
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -233,7 +277,7 @@ CREATE SEQUENCE public.users_id_seq
 ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 16408)
+-- TOC entry 225 (class 1259 OID 16514)
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -253,7 +297,7 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO postgres;
 
 --
--- TOC entry 3238 (class 2604 OID 16451)
+-- TOC entry 3227 (class 2604 OID 16522)
 -- Name: payments payment_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -261,7 +305,7 @@ ALTER TABLE ONLY public.payments ALTER COLUMN payment_id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3227 (class 2604 OID 16426)
+-- TOC entry 3229 (class 2604 OID 16523)
 -- Name: rates rate_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -269,7 +313,7 @@ ALTER TABLE ONLY public.rates ALTER COLUMN rate_id SET DEFAULT nextval('public.r
 
 
 --
--- TOC entry 3240 (class 2604 OID 16484)
+-- TOC entry 3239 (class 2604 OID 16524)
 -- Name: sessions session_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -277,140 +321,100 @@ ALTER TABLE ONLY public.sessions ALTER COLUMN session_id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3410 (class 0 OID 16448)
--- Dependencies: 223
+-- TOC entry 3414 (class 0 OID 16481)
+-- Dependencies: 215
 -- Data for Name: payments; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.payments (payment_id, transaction_no, amount, dt_created, session_id, remarks) FROM stdin;
-\.
 
 
 --
--- TOC entry 3402 (class 0 OID 16388)
--- Dependencies: 215
+-- TOC entry 3416 (class 0 OID 16488)
+-- Dependencies: 217
 -- Data for Name: rates; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.rates (rate_id, name, garage, no_garage, dt_created, dt_updated, deleted) FROM stdin;
-1	Default	{"hourly":"100","three":"300","six":"500","twelve":"900","twenty_four":"1200"}	{"hourly":"100","three":"250","six":"450","twelve":"700","twenty_four":"1000"}	2023-04-10 19:08:41.292715	2023-06-19 23:23:57.823366	f
-3	Senior Discount	{"three":"240","six":"400","twelve":"640","twenty_four":"960","hourly":"80"}	{"three":"200","six":"360","twelve":"560","twenty_four":"800","hourly":"80"}	2023-04-12 18:46:07.957377	2023-04-12 18:46:07.957377	f
-2	KCC Discount	{"hourly":"90","three":"270","six":"450","twelve":"720","twenty_four":"1080"}	{"hourly":"90","three":"180","six":"405","twelve":"540","twenty_four":"810"}	2023-04-12 18:36:32.546515	2023-07-24 23:17:51.218751	f
-\.
+INSERT INTO public.rates VALUES (1, 'Default', '{"hourly":"100","three":"300","six":"500","twelve":"900","twenty_four":"1200"}', '{"hourly":"100","three":"250","six":"450","twelve":"700","twenty_four":"1000"}', '2023-04-10 19:08:41.292715', '2023-06-19 23:23:57.823366', false, 20, 20, 20, 200, 300, 100);
+INSERT INTO public.rates VALUES (3, 'Senior Discount', '{"three":"240","six":"400","twelve":"640","twenty_four":"960","hourly":"80"}', '{"three":"200","six":"360","twelve":"560","twenty_four":"800","hourly":"80"}', '2023-04-12 18:46:07.957377', '2023-04-12 18:46:07.957377', false, 20, 20, 20, 200, 300, 100);
+INSERT INTO public.rates VALUES (2, 'KCC Discount', '{"hourly":"90","three":"270","six":"450","twelve":"720","twenty_four":"1080"}', '{"hourly":"90","three":"180","six":"405","twelve":"540","twenty_four":"810"}', '2023-04-12 18:36:32.546515', '2023-07-24 23:17:51.218751', false, 20, 20, 20, 200, 300, 100);
 
 
 --
--- TOC entry 3404 (class 0 OID 16396)
--- Dependencies: 217
+-- TOC entry 3418 (class 0 OID 16497)
+-- Dependencies: 219
 -- Data for Name: rooms; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.rooms (room_no, type, transaction_no, status) FROM stdin;
-131	no_garage	\N	1
-135	no_garage	\N	1
-255	no_garage	\N	1
-115	garage	\N	1
-128	no_garage	\N	1
-129	no_garage	\N	1
-130	no_garage	\N	1
-259	no_garage	\N	1
-260	no_garage	\N	1
-267	no_garage	\N	1
-133	no_garage	\N	1
-142	no_garage	\N	1
-138	no_garage	\N	1
-117	garage	\N	1
-134	no_garage	\N	1
-136	no_garage	\N	1
-137	no_garage	\N	1
-139	no_garage	\N	1
-141	no_garage	\N	1
-143	no_garage	\N	1
-244	no_garage	\N	1
-245	no_garage	\N	1
-246	no_garage	\N	1
-247	no_garage	\N	1
-248	no_garage	\N	1
-249	no_garage	\N	1
-250	no_garage	\N	1
-251	no_garage	\N	1
-252	no_garage	\N	1
-116	garage	\N	1
-253	no_garage	\N	1
-254	no_garage	\N	1
-256	no_garage	\N	1
-257	no_garage	\N	1
-258	no_garage	\N	1
-261	no_garage	\N	1
-262	no_garage	\N	1
-263	no_garage	\N	1
-264	no_garage	\N	1
-266	no_garage	\N	1
-268	no_garage	\N	1
-118	garage	\N	1
-140	no_garage	\N	1
-124	garage	\N	1
-120	garage	\N	1
-119	garage	\N	1
-121	garage	\N	1
-122	garage	\N	1
-123	garage	\N	1
-125	garage	\N	1
-126	garage	\N	1
-265	no_garage	\N	1
-127	garage	\N	1
-132	no_garage	\N	1
-106	garage	\N	1
-105	garage	\N	1
-107	garage	\N	1
-114	garage	\N	1
-113	garage	\N	1
-112	garage	\N	1
-111	garage	\N	1
-110	garage	\N	1
-109	garage	\N	1
-108	garage	\N	1
-104	garage	\N	1
-103	garage	\N	1
-102	garage	\N	1
-101	garage	\N	1
-\.
+INSERT INTO public.rooms VALUES (1, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (2, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (3, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (4, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (5, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (6, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (7, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (8, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (9, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (10, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (11, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (12, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (13, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (14, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (15, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (16, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (17, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (18, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (19, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (20, 'garage', NULL, 1);
+INSERT INTO public.rooms VALUES (21, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (22, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (23, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (24, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (25, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (26, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (27, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (28, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (29, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (30, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (31, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (32, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (33, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (34, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (35, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (36, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (37, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (38, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (39, 'no_garage', NULL, 1);
+INSERT INTO public.rooms VALUES (40, 'no_garage', NULL, 1);
 
 
 --
--- TOC entry 3412 (class 0 OID 16481)
--- Dependencies: 225
+-- TOC entry 3419 (class 0 OID 16500)
+-- Dependencies: 220
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.sessions (session_id, user_id, login_dt, logout_dt) FROM stdin;
-\.
 
 
 --
--- TOC entry 3406 (class 0 OID 16400)
--- Dependencies: 219
+-- TOC entry 3422 (class 0 OID 16506)
+-- Dependencies: 223
 -- Data for Name: transactions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.transactions (transaction_no, room_no, dt_check_in, dt_check_out, bill, duration, base_time, additional_time, rate_id, remarks) FROM stdin;
-\.
 
 
 --
--- TOC entry 3408 (class 0 OID 16408)
--- Dependencies: 221
+-- TOC entry 3424 (class 0 OID 16514)
+-- Dependencies: 225
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, first_name, last_name, username, password, admin, dt_created, dt_updated, deleted) FROM stdin;
-1	admin	admin	admin	1234	t	2024-03-09 06:42:33.208784	2024-03-09 06:42:33.208784	f
-\.
+INSERT INTO public.users VALUES (1, 'admin', 'admin', 'admin', '1234', true, '2024-03-09 06:42:33.208784', '2024-03-09 06:42:33.208784', false);
 
 
 --
--- TOC entry 3422 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 3437 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: payments_payment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -418,8 +422,8 @@ SELECT pg_catalog.setval('public.payments_payment_id_seq', 1, false);
 
 
 --
--- TOC entry 3423 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3438 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: rates_rate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -427,8 +431,8 @@ SELECT pg_catalog.setval('public.rates_rate_id_seq', 4, false);
 
 
 --
--- TOC entry 3424 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 3439 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: sessions_session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -436,8 +440,8 @@ SELECT pg_catalog.setval('public.sessions_session_id_seq', 1, false);
 
 
 --
--- TOC entry 3425 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3440 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: transaction_ref_no_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -445,8 +449,8 @@ SELECT pg_catalog.setval('public.transaction_ref_no_seq', 1, false);
 
 
 --
--- TOC entry 3426 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3441 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -454,7 +458,7 @@ SELECT pg_catalog.setval('public.users_id_seq', 2, false);
 
 
 --
--- TOC entry 3253 (class 2606 OID 16456)
+-- TOC entry 3255 (class 2606 OID 16526)
 -- Name: payments payments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -463,7 +467,7 @@ ALTER TABLE ONLY public.payments
 
 
 --
--- TOC entry 3243 (class 2606 OID 16417)
+-- TOC entry 3257 (class 2606 OID 16528)
 -- Name: rates rates_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -472,7 +476,7 @@ ALTER TABLE ONLY public.rates
 
 
 --
--- TOC entry 3245 (class 2606 OID 16419)
+-- TOC entry 3259 (class 2606 OID 16530)
 -- Name: rooms rooms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -481,7 +485,7 @@ ALTER TABLE ONLY public.rooms
 
 
 --
--- TOC entry 3255 (class 2606 OID 16487)
+-- TOC entry 3261 (class 2606 OID 16532)
 -- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -490,7 +494,7 @@ ALTER TABLE ONLY public.sessions
 
 
 --
--- TOC entry 3247 (class 2606 OID 16421)
+-- TOC entry 3263 (class 2606 OID 16534)
 -- Name: transactions transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -499,7 +503,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- TOC entry 3249 (class 2606 OID 16423)
+-- TOC entry 3265 (class 2606 OID 16536)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -508,7 +512,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3251 (class 2606 OID 16425)
+-- TOC entry 3267 (class 2606 OID 16538)
 -- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -517,7 +521,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3256 (class 2606 OID 16494)
+-- TOC entry 3268 (class 2606 OID 16539)
 -- Name: payments payments_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -526,7 +530,7 @@ ALTER TABLE ONLY public.payments
 
 
 --
--- TOC entry 3257 (class 2606 OID 16457)
+-- TOC entry 3269 (class 2606 OID 16544)
 -- Name: payments payments_transaction_no_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -535,7 +539,7 @@ ALTER TABLE ONLY public.payments
 
 
 --
--- TOC entry 3258 (class 2606 OID 16488)
+-- TOC entry 3270 (class 2606 OID 16549)
 -- Name: sessions sessions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -543,7 +547,16 @@ ALTER TABLE ONLY public.sessions
     ADD CONSTRAINT sessions_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
--- Completed on 2024-04-01 14:12:15 PST
+--
+-- TOC entry 3433 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: pg_database_owner
+--
+
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
+
+
+-- Completed on 2024-05-15 21:32:44 PST
 
 --
 -- PostgreSQL database dump complete

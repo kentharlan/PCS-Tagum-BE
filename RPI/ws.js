@@ -72,7 +72,7 @@ class Ws {
 
     static async generateRPICommand(room, status) {
         let GPIO, RPI
-        const rpi = room / 24;
+        const rpi = room / 20;
 
         if (rpi <= 1) {
             RPI = 1
@@ -97,38 +97,30 @@ class Ws {
                 case 18: GPIO = 13; break;
                 case 19: GPIO = 16; break;
                 case 20: GPIO = 20; break;
-                case 21: GPIO = 21; break;
-                case 22: GPIO = 26; break;
-                case 23: GPIO = 19; break;
-                case 24: GPIO = 12; break;
             }
           } else {
             RPI = 2
             switch(room) {
-                case 25: GPIO = 6; break;
-                case 26: GPIO = 13; break;
-                case 27: GPIO = 16; break;
-                case 28: GPIO = 20; break;
-                case 29: GPIO = 21; break;
-                case 30: GPIO = 26; break;
-                case 31: GPIO = 19; break;
-                case 32: GPIO = 12; break;
-                case 33: GPIO = 4; break;
-                case 34: GPIO = 15; break;
-                case 35: GPIO = 18; break;
-                case 36: GPIO = 22; break;
-                case 37: GPIO = 24; break;
-                case 38: GPIO = 9; break;
-                case 39: GPIO = 11; break;
-                case 40: GPIO = 7; break;
-                case 41: GPIO = 5; break;
-                case 42: GPIO = 8; break;
-                case 43: GPIO = 25; break;
-                case 44: GPIO = 10; break;
-                case 45: GPIO = 23; break;
-                case 46: GPIO = 27; break;
-                case 47: GPIO = 17; break;
-                case 48: GPIO = 14; break;
+                case 21: GPIO = 6; break;
+                case 22: GPIO = 13; break;
+                case 23: GPIO = 16; break;
+                case 24: GPIO = 20; break;
+                case 25: GPIO = 21; break;
+                case 26: GPIO = 26; break;
+                case 27: GPIO = 19; break;
+                case 28: GPIO = 12; break;
+                case 29: GPIO = 4; break;
+                case 30: GPIO = 15; break;
+                case 31: GPIO = 18; break;
+                case 32: GPIO = 22; break;
+                case 33: GPIO = 24; break;
+                case 34: GPIO = 9; break;
+                case 35: GPIO = 11; break;
+                case 36: GPIO = 7; break;
+                case 37: GPIO = 5; break;
+                case 38: GPIO = 8; break;
+                case 39: GPIO = 25; break;
+                case 40: GPIO = 10; break;
             }
           }
 
